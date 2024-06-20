@@ -27,7 +27,7 @@ app.get('/peso', (req, res) => {
   });
 
   serialPort.on('error', (err) => {
-    res.status(500).send(`Erro na porta serial: ${err.message}`);
+    res.status(403).send(`Erro na porta serial: ${err.message}`);
   });
 
   serialPort.on('open', () => {
