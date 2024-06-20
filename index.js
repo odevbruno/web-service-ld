@@ -2,9 +2,20 @@ const express = require('express');
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 require("dotenv").config();
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.get('/ping', async (req, res) => {
+  try {
+    res.status(200).send('Ping API');
+  } catch (error) {
+    console.error('Error starting the process:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.get('/peso', (req, res) => {
   const serialPort = new SerialPort({ path: 'COM5', baudRate: 9600 });
